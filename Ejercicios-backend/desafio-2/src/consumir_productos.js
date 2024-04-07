@@ -1,12 +1,12 @@
 const ProdcutManage = require('./app.js');
 
-const productos = new ProdcutManage('../','productos.json');
+const productos = new ProdcutManage('./','productos.json');
 
 //Crear un nuevo archvio
 async function crearNuevoArchvio(){
     await productos.crearArchivo()
 }
-/* crearNuevoArchvio(); */ //<--- ESTE METODO SOLO SE EJECUTA UNA VEZ YA QUE CREA EL ARCHIVO
+crearNuevoArchvio();  //<--- ESTE METODO SOLO SE EJECUTA UNA VEZ YA QUE CREA EL ARCHIVO
 
 //Agregfar un nuevo producto
 async function crearNuevoProducto(title, description, price, thumbnail, code, stock){
