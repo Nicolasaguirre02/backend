@@ -1,0 +1,14 @@
+{
+  "name": "desafio-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "desafio_2.js",
+  
+  "scripts": {
+    
+    "start": "node --watch src/consumir_productos.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
