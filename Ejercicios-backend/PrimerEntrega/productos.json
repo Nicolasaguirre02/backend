@@ -1,0 +1,84 @@
+[
+  {
+    "id": 2,
+    "title": "Procesadora",
+    "description": "probando",
+    "price": "900",
+    "thumbnail": "thumbnail.com",
+    "code": "A12v",
+    "stock": 20
+  },
+  {
+    "id": 3,
+    "title": "Microondas",
+    "description": "probando",
+    "price": "900",
+    "thumbnail": "thumbnail.com",
+    "code": "A12v",
+    "stock": 20
+  },
+  {
+    "id": 4,
+    "title": "Pava electrica",
+    "description": "probando",
+    "price": "900",
+    "thumbnail": "thumbnail.com",
+    "code": "A12v",
+    "stock": 20
+  },
+  {
+    "id": 5,
+    "title": "Tostadora",
+    "description": "probando",
+    "price": "900",
+    "thumbnail": "thumbnail.com",
+    "code": "A12v",
+    "stock": 20
+  },
+  {
+    "id": 6,
+    "title": "Licuadora",
+    "description": "probando",
+    "price": "900",
+    "thumbnail": "thumbnail.com",
+    "code": "A12v",
+    "stock": 20
+  },
+  {
+    "id": 7,
+    "title": "Monitor",
+    "description": "probando",
+    "price": "900",
+    "thumbnail": "thumbnail.com",
+    "code": "A12v",
+    "stock": 20
+  },
+  {
+    "id": 8,
+    "title": "Tablet",
+    "description": "probando",
+    "price": "900",
+    "thumbnail": "thumbnail.com",
+    "code": "A12v",
+    "stock": 20
+  },
+  {
+    "id": 9,
+    "title": "Celular",
+    "description": "probando",
+    "price": "900",
+    "thumbnail": "thumbnail.com",
+    "code": "A12v",
+    "stock": 20
+  },
+  {
+    "id": 10,
+    "title": "Microondas probando",
+    "description": "probando",
+    "price": "900",
+    "thumbnail": "thumbnail.com",
+    "code": "A12v",
+    "stock": 10000,
+    "status": true
+  }
+]
