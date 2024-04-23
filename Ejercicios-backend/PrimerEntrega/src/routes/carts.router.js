@@ -26,10 +26,19 @@ router.post("/carts", async(req, res) => {
 
 router.post("/carts/:cid/product/:pid", async(req, res) => {
     try {
+        const listaCarrito = await carrito.getCarts();
         const idCarrito = req.params.cid;
         const idProducto = req.params.pid;
-        await carrito.addToListProducts(1, 1);
-        res.json({message:'Se agrego el producto con exito'})
+        const verificarCarrito = listaCarrito.find(carrito => carrito.id == idCarrito);
+        
+        if(verificarCarrito){
+            await carrito.addToListProducts(idCarrito, idProducto);
+            res.json({message:'Se agrego el producto con exito'})
+        }else{
+            res.json({message:'No existe el carrito'})
+        }
+
+        
     } catch (error) {
         res.json({error:'Error al agregar el producto al carrito'})
     }
