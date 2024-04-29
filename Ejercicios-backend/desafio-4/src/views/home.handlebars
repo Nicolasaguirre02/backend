@@ -1,0 +1,19 @@
+<div>
+    <h1>Home</h1>
+    {{#each listProducts}}
+    <div>
+
+        <div class="card border-primary mb-3" style="max-width: 18rem;">
+            <div class="card-header">{{this.title}}</div>
+            <div class="card-body text-primary">
+                <h5 class="card-title">${{this.price}}</h5>
+                <p class="card-text">{{this.description}}</p>
+                <p class="card-text">Stock: {{this.stock}}</p>
+
+            </div>
+        </div>
+
+    </div>
+    {{/each}}
+        
+</div>

@@ -1,0 +1,47 @@
+[
+  {
+    "id": 3,
+    "title": "Microondas",
+    "description": "probando",
+    "price": "900",
+    "thumbnail": "thumbnail.com",
+    "code": "A12v",
+    "stock": 20
+  },
+  {
+    "id": 4,
+    "title": "Pava electrica",
+    "description": "probando",
+    "price": "900",
+    "thumbnail": "thumbnail.com",
+    "code": "A12v",
+    "stock": 20
+  },
+  {
+    "id": 5,
+    "title": "Tostadora",
+    "description": "probando",
+    "price": "900",
+    "thumbnail": "thumbnail.com",
+    "code": "A12v",
+    "stock": 20
+  },
+  {
+    "id": 6,
+    "title": "Licuadora",
+    "description": "probando",
+    "price": "900",
+    "thumbnail": "thumbnail.com",
+    "code": "A12v",
+    "stock": 20
+  },
+  {
+    "title": "Computadora",
+    "description": "samsung",
+    "price": "120000",
+    "thumbnail": "probando",
+    "code": "aaw12",
+    "stock": "20",
+    "id": 5
+  }
+]

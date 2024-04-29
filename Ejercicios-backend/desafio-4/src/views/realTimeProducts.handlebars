@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <h1>Real time</h1>
+    <form id="formulario">
+        <div class="row">
+            <div class="col-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" >
+            </div>
+            <div class="col-3">
+                <label for="description" class="form-label">description</label>
+                <input type="text" class="form-control" id="description" >
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label for="price" class="form-label">price</label>
+                <input type="number" class="form-control" id="price">
+            </div>
+            <div class="col-3">
+                <label for="thumbnail" class="form-label">thumbnail</label>
+                <input type="text" class="form-control" id="thumbnail">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label for="code" class="form-label">code</label>
+                <input type="text" class="form-control" id="code" >
+            </div>
+            <div class="col-3">
+                <label for="stock" class="form-label">stock</label>
+                <input type="number" class="form-control" id="stock" >
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </form>
+
+
+    <h1 id="total_productos">Productos</h1>
+    <div id="contenedor_listado">
+
+    </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="./js/index.js"></script> 
