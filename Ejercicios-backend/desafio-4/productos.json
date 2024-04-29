@@ -1,6 +1,6 @@
 [
   {
-    "id": 3,
+    "id": 1,
     "title": "Microondas",
     "description": "probando",
     "price": "900",
@@ -9,7 +9,7 @@
     "stock": 20
   },
   {
-    "id": 4,
+    "id": 2,
     "title": "Pava electrica",
     "description": "probando",
     "price": "900",
@@ -18,7 +18,7 @@
     "stock": 20
   },
   {
-    "id": 5,
+    "id": 3,
     "title": "Tostadora",
     "description": "probando",
     "price": "900",
@@ -27,7 +27,7 @@
     "stock": 20
   },
   {
-    "id": 6,
+    "id": 4,
     "title": "Licuadora",
     "description": "probando",
     "price": "900",
