@@ -20,7 +20,7 @@ productos.addProduct({
 })   
 
 
-
+//Listar los productos
 async function readFileProducts(){
     try {
         const data = await productos.getProducts();

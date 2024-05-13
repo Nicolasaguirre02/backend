@@ -8,8 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 
-app.use("/api", productosRoutes)
-app.use("/api", cartsRoutes)
+app.use("/api", productosRoutes); 
+app.use("/api", cartsRoutes);
 
-
-app.listen(PORT, () => console.log('En puerto 8080'))
+app.listen(PORT, () => console.log('En puerto 8080'));

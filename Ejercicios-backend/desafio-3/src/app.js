@@ -10,9 +10,8 @@ const productos = new ProdcutManage('./productos.json');
 function readProducts(){
     app.get('/products',async (req, res) => {
         const listProducts = await productos.getProducts();
-
         let limit = req.query.limit;
-        console.log("lmite: ",limit) 
+        
         const listaProductosLimint =[];
         let  contador = 1;
         listProducts.map((producto)=>{

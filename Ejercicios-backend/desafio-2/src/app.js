@@ -49,7 +49,7 @@ class ProductManager{
         try {
             const listaProductos = await this.getProducts();
             const productoEncontrado = listaProductos.find((producto) => producto.id = idProducto);
-            console.log("Producto con ID " ,idProducto, " encontrado: ", productoEncontrado)
+            return productoEncontrado
 
         } catch (error) {
             console.error(`No existe producto con id: ${idProducto}`)
@@ -57,13 +57,13 @@ class ProductManager{
     }
 
     
-    async updateProduct(idProducto){
+    async updateProduct(listaProduct){
         try {
-            const listaProductos = await this.getProducts();
+            /* const listaProductos = await this.getProducts();
             const productoModificar =  listaProductos.find(producto => producto.id === idProducto);
             productoModificar.price = 900;
-            productoModificar.stock = 18;
-            await fs.writeFile(this.path, JSON.stringify(listaProductos, null, 2))  
+            productoModificar.stock = 18; */
+            await fs.writeFile(this.path, JSON.stringify(listaProduct, null, 2))  
             console.log("Producto modificado")
         } catch (error) {
             console.log("El producto que quieres modificar no existe en la lista")
@@ -81,10 +81,10 @@ class ProductManager{
                 }
             })
             await fs.writeFile(this.path, JSON.stringify(nuevaListaProductos, null, 2))  
-            console.log("Producto eliminado correctamente")
+            /* console.log("Producto eliminado correctamente") */
     
         } catch (error) {
-            console.log("Error al eliminar el producto")
+            /* console.log("Error al eliminar el producto") */
         }
     }
 
