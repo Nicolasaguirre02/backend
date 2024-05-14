@@ -39,7 +39,6 @@ router.post('/carts/:cid/product/:pid', async(req, res) => {
         let idProduct = req.params.pid;
         let cartSelect = await cartsModel.findById(idCart); //Guarda el carrito seleccionado con el id del parametro
         let listProducts = cartSelect.products; //Guarda la LISTA de productos que tiene el carrito
-       /*   console.log(listProducts)  */
         let productFromCart = listProducts.find(producto => producto.product == idProduct); //Guarda el producto seleccionado por el ID {idProducto, cantidad}
         console.log(productFromCart)
 
