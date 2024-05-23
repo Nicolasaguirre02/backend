@@ -32,6 +32,7 @@ mongoose.connect("mongodb+srv://nicolas:Colon1905@cluster0.5kklvxo.mongodb.net/e
 
     app.use('/chat', routerView);
     app.use('/api', routerMessage);
+    app.use('/view', routerView);
 
 
 

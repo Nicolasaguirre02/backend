@@ -6,8 +6,20 @@ const router = Router();
 
 router.get('/products', async(req, res) => {
     try {
-        let listProducts = await productsModel.find();
-        res.send({response:"Succes", playload:listProducts});
+        let limite = parseInt(req.query.limit) || 10;
+        let pagina = parseInt(req.query.page) || 1;
+        let order = parseInt(req.query.order) || 1;
+        let disponible = req.query.disponible || true;
+        console.log(order)
+
+        let listProducts = await productsModel.aggregate([
+            {$sort: {price:order}} 
+        ]); 
+        
+        listProducts = await productsModel.paginate({disponible:disponible},{limit:limite,page:pagina})
+
+        console.log(listProducts)
+        res.send({status:"Succes", playload:listProducts});
     } catch (error) {
         console.log("Erro al listar productos", error);
     }
@@ -50,7 +62,7 @@ router.put('/products/:pid', async(req, res) => {
         }
         product = productModificado;
         await productsModel.updateOne({ _id: productID }, product);
-        res.send({response:"Succes", playload:product}); 
+        res.send({status:"Succes", playload:product}); 
     } catch (error) {
         console.log("Error al modificar el producto", error)
     }
@@ -60,7 +72,7 @@ router.delete('/products/:pid', async(req, res) => {
     try {
         let productID = req.params.pid;
         let resultado = await productsModel.deleteOne({_id:productID})
-        res.send({response:"Succes", playload:resultado});
+        res.send({status:"Succes", playload:resultado});
     } catch (error) {
         res.send({status:"error", error:"Error al eliminar"})
     }
