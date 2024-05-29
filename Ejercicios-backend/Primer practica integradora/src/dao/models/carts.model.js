@@ -19,11 +19,6 @@ const cartsSchema = new mongoose.Schema({
         ],
         default:[]
     }
-
-  /*   products:[{
-        product: {type: String},
-        quantity: {type: Number},
-    }] */
 });
 
 const cartsModel = mongoose.model(cartsCollection, cartsSchema);

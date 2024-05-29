@@ -1,5 +1,5 @@
 import { Router, raw, response } from "express";
-import productsModel from "../dao/models/products.model.js";
+import productsModel from "../../dao/models/products.model.js";
 import mongoose from "mongoose";
 
 const router = Router();

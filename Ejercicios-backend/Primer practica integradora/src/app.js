@@ -1,14 +1,22 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import routerCarts from './routes/carts.router.js';
-import routerProducts from './routes/products.router.js';
+import routerCarts from './routes/api/carts.router.js';
+import routerProducts from './routes/api/products.router.js';
 import routerView from "./routes/views.router.js"
-import routerMessage from './routes/messages.router.js';
+import routerMessage from './routes/api/messages.router.js';
 import handlebars from "express-handlebars";
 import {Server} from 'socket.io';
 import __dirname from './utils.js';
-
 import messageModel from './dao/models/messages.model.js';
+import routerUser from './routes/api/users.router.js';
+
+
+//Imports session 
+import cookieParse from 'cookie-parser';
+import session from "express-session";
+import MongoStore from 'connect-mongo'
+
+
 
 const app = express();
 const httpServer = app.listen(8080,()=>console.log("Conectado en puerto 8080"));
@@ -17,8 +25,7 @@ const httpServer = app.listen(8080,()=>console.log("Conectado en puerto 8080"));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.use('/api', routerCarts);
-app.use('/api', routerProducts);
+
 
 
 
@@ -30,9 +37,54 @@ mongoose.connect("mongodb+srv://nicolas:Colon1905@cluster0.5kklvxo.mongodb.net/e
         console.log("Error al la coneccion con db ecommerce", error);
     });
 
-    app.use('/chat', routerView);
-    app.use('/api', routerMessage);
-    app.use('/', routerView);
+
+
+
+
+
+//Session 
+app.use(cookieParse());
+
+app.use(session({
+    store: MongoStore.create({
+        mongoUrl:'mongodb+srv://nicolas:Colon1905@cluster0.5kklvxo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+        ttl:100
+    }),
+    secret:'12345',
+    resave:false,
+    saveUninitialized:false,
+    cookie: { secure: false }
+}))
+
+app.use('/chat', routerView);
+app.use('/', routerView);
+
+app.use('/api', routerCarts);
+app.use('/api', routerProducts);
+app.use('/api', routerUser);
+app.use('/api', routerMessage);
+
+
+/* 
+
+app.get('/practicando', (req, res) => {
+    if(req.session.views){
+        req.session.views++
+        res.send(`<h1>sessions : ${req.session.views}</h1>`)
+    }else{
+        req.session.views = 1;
+        res.send('Bienvenido')
+    }
+
+    console.log("verrrr", req.session)
+}) */
+
+ 
+
+
+
+
+
 
 
 

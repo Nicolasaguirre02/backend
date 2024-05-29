@@ -1,5 +1,5 @@
 import { Router } from "express";
-import cartsModel from "../dao/models/carts.model.js";
+import cartsModel from "../../dao/models/carts.model.js";
 import mongoose from "mongoose";
 
 const router = Router();
@@ -116,6 +116,7 @@ router.put('/carts/:cid/product/:pid', async(req, res) => {
         console.log("Error al modificar el arreglo de productos", error)
     }
 })
+
 
 
 //Eliminar todos los productos del carrito
