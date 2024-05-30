@@ -25,7 +25,7 @@ router.get('/products', async (req,res)=>{
 
 router.get('/cart/:cid',async (req,res)=>{
     let idCart = req.params.cid;
-    let result = await cartsModel.findById(idCart).populate('products.product');
+    let result = await cartsModel.findById(idCart).populate('products.product').lean();
     res.render('carts', result)
 })
 
