@@ -9,6 +9,8 @@ import {Server} from 'socket.io';
 import __dirname from './utils.js';
 import messageModel from './dao/models/messages.model.js';
 import routerUser from './routes/api/users.router.js';
+import passport from 'passport';
+import initializePassport from './config/passport.config.js';
 
 
 //Imports session 
@@ -55,6 +57,9 @@ app.use(session({
     saveUninitialized:false,
     cookie: { secure: false }
 }))
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/chat', routerView);
 app.use('/', routerView);
