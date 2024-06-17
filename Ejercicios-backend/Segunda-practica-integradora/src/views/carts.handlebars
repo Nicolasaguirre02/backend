@@ -1,0 +1,18 @@
+<h1>Carrito</h1>
+<div>
+    {{#each products}}
+    <div>
+        <div class="card border-primary mb-3" style="max-width: 25rem;">
+            <div class="card-header">{{product.titulo}}</div>
+            <div class="card-body text-primary">
+                <h5 class="card-title">$ {{product.price}}</h5>
+                <div class="row">
+                    <div class="col-6">
+                        <p class="card-text">Stock: {{product.disponible}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
