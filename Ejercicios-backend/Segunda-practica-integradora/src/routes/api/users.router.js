@@ -3,10 +3,12 @@ import User from '../../dao/models/users.model.js';
 import { createHash, isValidPassword } from '../../utils.js';
 import passport from 'passport';
 import { generarToken, authToken } from '../../utils.js';
+import userController from '../../controlles/userController.js';
 
 const router = Router();
 
-router.post('/login', passport.authenticate('login',{failureRedirect:'faillogin'}) ,async(req, res) => {
+
+/* router.post('/login', passport.authenticate('login',{failureRedirect:'faillogin'}) ,async(req, res) => {
     const loginUser = req.body;
     const user = req.user;
     let isAdmin = false;
@@ -26,51 +28,64 @@ router.post('/login', passport.authenticate('login',{failureRedirect:'faillogin'
     } catch (error) {
          res.send({response:'Error', error:error}) 
     }
-})
+}) */
+router.post('/login', passport.authenticate('login', {failureRedirect:'faillogin'}), userController.loginController);
 
 
-router.get('/faillogin', (req,res) => {
-    res.send({error:"Error login"})
-})
+
+/* router.get('/faillogin', (req,res) => {
+    res.json({error:"Error login"})
+}) */
+router.get('/faillogin',  userController.failLoginController);
 
 
-router.get('/current', authToken,(req, res) => {
-    
+
+/* router.get('/current', authToken,(req, res) => {
     res.send({status:"succes", playload:req.user})
-})
+}) */
+router.get('/current',  userController.currentController);
 
 
 
-router.post('/register', passport.authenticate('register',{failureRedirect:'failregister'}),async(req,res) => {
-    /* res.send({status:"succes"}) */
+/* router.post('/register', passport.authenticate('register',{failureRedirect:'failregister'}),async(req,res) => {
      res.redirect('/login'); 
-});
+}); */
+router.post('/register',  passport.authenticate('register',{failureRedirect:'failregister'}),  userController.registerController);
 
-router.get('/failregister', async(req, res) => {
+
+/* router.get('/failregister', async(req, res) => {
     res.send({error:"Fallo"})
-})
+}) */
+router.get('/failregister',  userController.failRegisterController);
 
 
 
-router.get('/github', passport.authenticate('github',{scope:['user:email']}), async(req,res)=>{
+/* router.get('/github', passport.authenticate('github',{scope:['user:email']}), async(req,res)=>{
     res.redirect('/products')
-})
+}); */
+router.get('/github', passport.authenticate('github',{scope:['user:email']}), userController.githubController);
 
 
-router.get('/githubcallback', passport.authenticate('github',{failureRedirect:'/login'}),async(req,res)=>{
+/* router.get('/githubcallback', passport.authenticate('github',{failureRedirect:'/login'}),async(req,res)=>{
    let user = req.user;
    let newToken = generarToken(user);
     res.cookie('token', newToken, {maxAge:10000, httpOnly:true}); 
 
     res.redirect('/products')
-})
+}) */
+router.get('/githubcallback', passport.authenticate('github',{failureRedirect:'/login'}), userController.githubCallbackController);
 
-router.get('/logout', (req,res) => {
+
+
+/* router.get('/logout', (req,res) => {
     req.session.destroy((err) => {
         if(err) return res.status(500).send('Error al cerrar sesion');
         res.redirect('/login')
     })
-})
+}) */
+router.get('/logout', userController.logoutController);
+
+
 
 
 export default router

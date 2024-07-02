@@ -1,10 +1,11 @@
 import { Router, raw, response } from "express";
 import productsModel from "../../dao/models/products.model.js";
+import productsController from "../../controlles/productsController.js";
 import mongoose from "mongoose";
 
 const router = Router();
 
-router.get('/products', async(req, res) => {
+/* router.get('/products', async(req, res) => {
     try {
         let limite = parseInt(req.query.limit) || 10;
         let pagina = parseInt(req.query.page) || 1;
@@ -23,9 +24,12 @@ router.get('/products', async(req, res) => {
     } catch (error) {
         console.log("Erro al listar productos", error);
     }
-});
+}); */
+router.get('/products', productsController.getProductsController )
 
-router.get('/products/:pid', async(req, res) => {
+
+
+/* router.get('/products/:pid', async(req, res) => {
     try {
         let productID = req.params.pid;
         let product = await productsModel.findById(productID);
@@ -36,9 +40,12 @@ router.get('/products/:pid', async(req, res) => {
     } catch (error) {
         console.log("error al buscar producto por ID", error);
     }
-});
+}); */
+router.get('/products/:pid', productsController.getProductId );
 
-router.post('/products', async(req, res) => {
+
+
+/* router.post('/products', async(req, res) => {
    try {
      let {titulo, price, disponible} = req.body;
     if(!titulo || !price || !disponible){
@@ -49,9 +56,11 @@ router.post('/products', async(req, res) => {
 } catch (error) {
     console.log("Error al crear un nuevo producto", error)
    }
-})
+}) */
+router.post('/products', productsController.newProduct );
 
-router.put('/products/:pid', async(req, res) => {
+
+/* router.put('/products/:pid', async(req, res) => {
     try {
         let productID = req.params.pid;
         let productModificado = req.body;
@@ -66,9 +75,11 @@ router.put('/products/:pid', async(req, res) => {
     } catch (error) {
         console.log("Error al modificar el producto", error)
     }
-})
+}) */
+router.put('/products/:pid', productsController.putProduct );
 
-router.delete('/products/:pid', async(req, res) => {
+
+/* router.delete('/products/:pid', async(req, res) => {
     try {
         let productID = req.params.pid;
         let resultado = await productsModel.deleteOne({_id:productID})
@@ -76,6 +87,8 @@ router.delete('/products/:pid', async(req, res) => {
     } catch (error) {
         res.send({status:"error", error:"Error al eliminar"})
     }
-})
+}) */
+
+router.delete('/products/:pid', productsController.deleteProduct );
 
 export default router

@@ -1,39 +1,23 @@
 import { Router } from "express";
 import cartsModel from "../../dao/models/carts.model.js";
+import cartsController from '../../controlles/cartsController.js'
 import mongoose from "mongoose";
 
 const router = Router();
 
-router.get('/carts', async(req, res) => {
-    try {
-        let listCarts = await cartsModel.find();
-        res.send({result:'succes', payload: listCarts});
-    } catch (error) {
-        console.log("Error al listar carts", error)
-    }
-});
+//Lista todos los carritos
+router.get('/carts',  cartsController.getAllCarts);
 
-router.get('/carts/:cid', async(req, res) => {
-    try {
-        let idCart = req.params.cid;
-        let cart = await cartsModel.findById(idCart).populate('products.product');
-        res.send({result:'succes', payload: cart});
-    } catch (error) {
-        console.log("Error al listar carts", error)
-    }
-});
+//Mustra carrito por ID
+router.get('/carts/:cid', cartsController.getCartId);
 
-router.post('/carts', async(req, res) => {
-    try {
-        let newCart = {products:[]};
-        let result = await cartsModel.create(newCart);
-        res.send({result:"Succes", payload:result})
-    } catch (error) {
-        console.log("Error al crear el carrito")
-    }
-})
+//Crea un nueco carrito
+router.post('/carts', cartsController.newCart)
 
-router.post('/carts/:cid/product/:pid', async(req, res) => {
+//Asigna n producto a un carrito
+router.post('/carts/:cid/product/:pid', cartsController.newProductToCart)
+
+/* router.post('/carts/:cid/product/:pid', async(req, res) => {
     try {
         let idCart = req.params.cid;
         let idProduct = req.params.pid;
@@ -58,24 +42,12 @@ router.post('/carts/:cid/product/:pid', async(req, res) => {
     } catch (error) {
         console.log("Error al agregar producto al carrito", error)
     }
-})
+}) */
+
 
 
 //Elimina el producto del carrito
-router.delete('/carts/:cid/product/:pid', async(req, res) => {
-    try {
-        let idCart = req.params.cid;
-        let idProduct = req.params.pid;
-        let cartSelect = await cartsModel.findById(idCart);
-        let listProducts = cartSelect.products;
-        cartSelect.products = listProducts.filter(producto => producto.product != idProduct);
-        await cartSelect.save();
-        res.send({status:"Succes", playload:cartSelect});
-    } catch (error) {
-        console.log("Error al eliminar un producto", error)
-    }
-})
-
+router.delete('/carts/:cid/product/:pid', cartsController.deletProdcutFromCart)
 
 //Modifica el arreglo de productos
 router.put('/carts/:cid', async(req, res) => {
@@ -120,17 +92,8 @@ router.put('/carts/:cid/product/:pid', async(req, res) => {
 
 
 //Eliminar todos los productos del carrito
-router.delete('/carts/:cid', async(req, res) => {
-    try {
-        let idCart = req.params.cid;
-        let cartSelect = await cartsModel.findById(idCart);
-        cartSelect.products = [];
-        await cartSelect.save();
-        res.send({status:"Succes", playload:cartSelect});
-    } catch (error) {
-        console.log("Error al eliminar un producto", error)
-    }
-})
+router.delete('/carts/:cid', cartsController.deleteAllProductsFromCart)
+
 
 
 export default router

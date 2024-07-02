@@ -18,10 +18,13 @@ import cookieParse from 'cookie-parser';
 import session from "express-session";
 import MongoStore from 'connect-mongo'
 
+import { config } from './config/config.js';
 
+const puerto = config.port;
+const mongoUrl =config.mongoUrl;
 
 const app = express();
-const httpServer = app.listen(8080,()=>console.log("Conectado en puerto 8080"));
+const httpServer = app.listen(puerto,()=>console.log("Conectado en puerto 8080"));
 
 
 app.use(express.json());
@@ -31,7 +34,7 @@ app.use(express.urlencoded({extended:true}));
 
 
 
-mongoose.connect("mongodb+srv://nicolas:Colon1905@cluster0.5kklvxo.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect(mongoUrl)
     .then(() => {
         console.log("Conexion correta con db ecommerce");
     })
