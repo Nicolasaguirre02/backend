@@ -5,7 +5,7 @@ import cartsModel from '../dao/models/carts.model.js';
 import { authToken } from '../utils.js';
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', authToken, (req, res) => {
     res.render('chat', {})
 });
 
@@ -19,6 +19,7 @@ router.get('/products',authToken,async (req,res)=>{
     result.nextLink = result.hasNextPage?`http://localhost:8080/products?page=${result.nextPage}`:'';
     result.isValid= !(page<=0||page>result.totalPages)
 
+    console.log("Esto manda al html,",{...result, user: req.user} )
     res.render('products', {...result, user: req.user}); 
 })
 

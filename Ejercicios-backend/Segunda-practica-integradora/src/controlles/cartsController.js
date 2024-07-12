@@ -9,7 +9,7 @@ async function getAllCarts(req,  res){
         const carts = await cartService.getAllCartsService(); 
         res.json(carts)
     } catch (error) {
-        res.json({respuesta:"Error al listar el carrito", error:error})
+        res.json({respuesta:"Error al listar todo los carritos", error:error})
     }
 }
 
@@ -37,6 +37,7 @@ async function newProductToCart(req, res){
     try {
         let idCart = req.params.cid;
         let idProduct = req.params.pid;
+        console.log("I del producto", idProduct)
         const resultCart = await cartService.newProductToCartService(idCart, idProduct);
         res.json({result:"Succes", payload:resultCart}) 
     } catch (error) {

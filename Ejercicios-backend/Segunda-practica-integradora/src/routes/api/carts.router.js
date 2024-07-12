@@ -1,7 +1,11 @@
 import { Router } from "express";
 import cartsModel from "../../dao/models/carts.model.js";
-import cartsController from '../../controlles/cartsController.js'
+import cartsController from '../../controlles/cartsController.js';
+import ticketController from "../../controlles/ticketController.js";
 import mongoose from "mongoose";
+import { authToken } from "../../utils.js";
+
+
 
 const router = Router();
 
@@ -14,36 +18,12 @@ router.get('/carts/:cid', cartsController.getCartId);
 //Crea un nueco carrito
 router.post('/carts', cartsController.newCart)
 
-//Asigna n producto a un carrito
+//Asigna un producto a un carrito
 router.post('/carts/:cid/product/:pid', cartsController.newProductToCart)
 
-/* router.post('/carts/:cid/product/:pid', async(req, res) => {
-    try {
-        let idCart = req.params.cid;
-        let idProduct = req.params.pid;
-        let cartSelect = await cartsModel.findById(idCart); //Guarda el carrito seleccionado con el id del parametro
-        let listProducts = cartSelect.products; //Guarda la LISTA de productos que tiene el carrito
-        let productFromCart = listProducts.find(producto => producto.product == idProduct); //Guarda el producto seleccionado por el ID {idProducto, cantidad}
 
-        if(!productFromCart){ //Si el producto no existe, crea uno nuevo
-            const newProduct = {
-                product:idProduct,
-                quantity:1
-            };
-            listProducts.push(newProduct)
-
-        }else{ //Si ya existe el producto dentro del carrito, solo suma uno
-            let quantityProduct  = parseInt(productFromCart.quantity) + 1; 
-            productFromCart.quantity = quantityProduct ;
-        }
-        cartSelect.save(); 
-        res.send({result:"Succes", payload:cartSelect}) 
-        
-    } catch (error) {
-        console.log("Error al agregar producto al carrito", error)
-    }
-}) */
-
+//Finaliza el proceso de la compra creando un ticket
+router.get('/:cid/purchase',authToken, ticketController.newTocketController);
 
 
 //Elimina el producto del carrito
@@ -88,7 +68,6 @@ router.put('/carts/:cid/product/:pid', async(req, res) => {
         console.log("Error al modificar el arreglo de productos", error)
     }
 })
-
 
 
 //Eliminar todos los productos del carrito

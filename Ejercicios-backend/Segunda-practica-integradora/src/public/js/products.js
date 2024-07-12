@@ -2,8 +2,28 @@
 const botonesAgregarCarrito = document.querySelectorAll('.btn_agregarProduct');
 
 
-async function agregarProducto(productId){
-    let url = `http://localhost:8080/api/carts/664fba4535bf3469c325f9a0/product/${productId}`;
+let cartid = async() => {
+
+    let url = `http://localhost:8080/api/current`;
+    
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            const dataUser = await response.json();
+            console.log(dataUser)
+            return dataUser.playload.cart;
+        }
+        
+    } catch (error) {
+        alert("Error al agregar producto")
+
+    }
+}
+
+
+
+async function agregarProducto(productId, cartId){
+    let url = `http://localhost:8080/api/carts/${cartId}/product/${productId}`;
     
     try {
         const response = await fetch(url, {
@@ -24,10 +44,13 @@ async function agregarProducto(productId){
     }
 }
 
+const nombre = document.getElementById("nombre");
 botonesAgregarCarrito.forEach(boton => {
-    boton.addEventListener('click', function() {
-        const valorProducto = boton.value;
-        console.log(valorProducto);
-        agregarProducto(valorProducto)
+    boton.addEventListener('click', async function() {
+        const idProduct = boton.dataset.id;
+        let cartId = await cartid();
+        
+        console.log(idProduct, cartId);
+        agregarProducto(idProduct, cartId) 
     });
 });

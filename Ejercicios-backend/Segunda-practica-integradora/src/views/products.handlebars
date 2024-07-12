@@ -2,13 +2,14 @@
 <div class="container-fluid">
     <div class="row" style="background-color: antiquewhite;">
         <div class="col-4">
-        <h2>{{user.first_name}} {{user.last_name}}</h2>
+        <h2 id="nombre" >{{user.first_name}} {{user.last_name}}</h2>
         </div>
 
         <div class="col-4">
             <h1>Productos</h1>
         </div>
 
+        {{user.cart}}
         
         <div class="col-4">
             {{#if user.tipoUsuario}}
@@ -23,6 +24,7 @@
 
 {{#if isValid}}
 <div>
+   <button>Finalizar compra</button>
     {{#each docs}}
     <div>
        
@@ -36,7 +38,13 @@
                         <p class="card-text">Stock: {{this._id}}</p>
                     </div>
                     <div class="col-6 text-end">
-                        <button type="button"  value="{{this._id}}" class="btn btn-outline-dark btn_agregarProduct">Agregar al carrito</button>
+                        {{!-- {{#if ../user.tipoUsuario}}
+                        <p></p>
+                        {{else}}
+                        <button type="button" value="{{this._id}}"
+                            class="btn btn-outline-dark btn_agregarProduct">Agregar al carrito</button>
+                        {{/if}} --}}
+                        <button type="button"  data-id="{{this._id}}" class="btn btn-outline-dark btn_agregarProduct">Agregar al carrito</button>
                     </div>
                 </div>
             </div>
