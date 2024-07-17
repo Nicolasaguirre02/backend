@@ -54,3 +54,30 @@ botonesAgregarCarrito.forEach(boton => {
         agregarProducto(idProduct, cartId) 
     });
 });
+
+
+//Enviar mail
+async function enviarMail(idCart){
+    let url = `http://localhost:8080/api/${idCart}/purchase `;
+
+    try {
+        let result = await fetch(url);
+        /* const data = await result.json();
+        console.log("La aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadata",result)  */
+
+        if(result.ok){
+            const data = await result.json();
+            alert("Se envio correctamente")
+            console.log("La data",data);
+        }
+    } catch (error) {
+        alert("Error al enviar el mail")
+    }
+}
+
+const finalizarCompra = document.getElementById("finalizarCompra");
+
+finalizarCompra.addEventListener("click", async()=>{
+    let idCart = await cartid();
+    await enviarMail(idCart)
+})

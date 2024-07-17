@@ -12,7 +12,7 @@ async function newTocketController(req, res){
         const user = req.user;
         const  respuestaTicket = await ticketService.newTicketService(idCart, cart, user.email);
         await enviarMail(respuestaTicket);  
-        res.status(200).json({"respuesta":respuestaTicket})
+        res.status(200).json({"status":"succes", "respuesta":respuestaTicket})
     } catch (error) {
         res.json({"Error al crear ticket":error})
     }

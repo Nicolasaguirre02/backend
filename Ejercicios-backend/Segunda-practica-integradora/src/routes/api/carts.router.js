@@ -3,7 +3,7 @@ import cartsModel from "../../dao/models/carts.model.js";
 import cartsController from '../../controlles/cartsController.js';
 import ticketController from "../../controlles/ticketController.js";
 import mongoose from "mongoose";
-import { authToken } from "../../utils.js";
+import { authToken, isUser } from "../../utils.js";
 
 
 
@@ -19,7 +19,7 @@ router.get('/carts/:cid', cartsController.getCartId);
 router.post('/carts', cartsController.newCart)
 
 //Asigna un producto a un carrito
-router.post('/carts/:cid/product/:pid', cartsController.newProductToCart)
+router.post('/carts/:cid/product/:pid', isUser, cartsController.newProductToCart)
 
 
 //Finaliza el proceso de la compra creando un ticket

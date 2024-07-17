@@ -24,7 +24,7 @@ const transport = nodemailer.createTransport({
         subject: "Nuevo pedido",
         html: `<h1>Productos</h1>
         <p>Codigo ${tiket.code}</p>
-        <p>Codigo ${tiket.amount}</p>
+        <p>Monto ${tiket.amount}</p>
         <p>purchaser ${tiket.purchaser}</p>
         <p>hora ${tiket.purchase_datetime}</p>
         `,
@@ -34,6 +34,33 @@ const transport = nodemailer.createTransport({
       console.error("Failed to send email:", error);
     }
   }
+
+
+//Middlware autorizacion a entpint products
+const isAdmin = (req, res, next) => {
+  console.log("Esto se ejecuta desde la autorizacion", req.user.rol);
+  if(!req.user){
+    return res.status(403).json({error:"Debe iniciar sesion"});
+  }
+  if(req.user.rol === "admin"){
+    next();
+  }else{
+    return res.status(403).json({error:"Debe tener cuenta admin"});
+  }
+}
+const isUser = (req, res, next) => {
+  console.log("Esto se ejecuta desde la autorizacion", req.user.rol);
+  if(!req.user){
+    return res.status(403).json({error:"Debe iniciar sesion"});
+  }
+  if(req.user.rol === "user"){
+    next();
+  }else{
+    console.log("error")
+    return res.status(403).json({error:"Debe tener cuenta admin"});
+  }
+}
+
 
 //Generar un coidog aletaorio
 const generarCodigo = () => {
@@ -70,4 +97,4 @@ const authToken = (req, res, next) => {
 }
 
 export default __dirname;
-export {generarToken, authToken, generarCodigo, enviarMail};
+export {generarToken, authToken, generarCodigo, enviarMail, isAdmin, isUser};

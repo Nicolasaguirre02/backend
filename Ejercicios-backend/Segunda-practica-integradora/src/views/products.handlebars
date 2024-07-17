@@ -24,7 +24,7 @@
 
 {{#if isValid}}
 <div>
-   <button>Finalizar compra</button>
+   <button type="button" class="btn btn-outline-dark" id="finalizarCompra">Finalizar compra</button>
     {{#each docs}}
     <div>
        
@@ -38,13 +38,13 @@
                         <p class="card-text">Stock: {{this._id}}</p>
                     </div>
                     <div class="col-6 text-end">
-                        {{!-- {{#if ../user.tipoUsuario}}
+                        {{#if ../user.tipoUsuario}}
                         <p></p>
                         {{else}}
                         <button type="button" value="{{this._id}}"
-                            class="btn btn-outline-dark btn_agregarProduct">Agregar al carrito</button>
-                        {{/if}} --}}
-                        <button type="button"  data-id="{{this._id}}" class="btn btn-outline-dark btn_agregarProduct">Agregar al carrito</button>
+                            class="btn btn-outline-dark btn_agregarProduct"  data-id="{{this._id}}">Agregar al carrito</button>
+                        {{/if}} 
+                        {{!-- <button type="button"  data-id="{{this._id}}" class="btn btn-outline-dark btn_agregarProduct">Agregar al carrito</button> --}}
                     </div>
                 </div>
             </div>
