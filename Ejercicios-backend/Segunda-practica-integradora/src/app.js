@@ -9,6 +9,7 @@ import { Server } from "socket.io";
 import __dirname from "./utils.js";
 import messageModel from "./dao/models/messages.model.js";
 import routerUser from "./routes/api/users.router.js";
+import routerMocking from './routes/api/mocking.router.js'
 import passport from "passport";
 import initializePassport from "./config/passport.config.js";
 
@@ -90,6 +91,8 @@ app.use("/", routerView);
 app.use("/api", routerCarts);
 app.use("/api", routerProducts);
 app.use("/api", routerUser);
+app.use("/api", routerMocking);
+
 
 app.use("/api", routerMessage);
 
