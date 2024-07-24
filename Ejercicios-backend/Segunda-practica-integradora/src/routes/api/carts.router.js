@@ -19,7 +19,8 @@ router.get('/carts/:cid', cartsController.getCartId);
 router.post('/carts', cartsController.newCart)
 
 //Asigna un producto a un carrito
-router.post('/carts/:cid/product/:pid', isUser, cartsController.newProductToCart)
+/* router.post('/carts/:cid/product/:pid', isUser, cartsController.newProductToCart) */
+router.post('/carts/:cid/product/:pid', cartsController.newProductToCart)
 
 
 //Finaliza el proceso de la compra creando un ticket

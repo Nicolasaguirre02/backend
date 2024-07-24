@@ -1,6 +1,9 @@
 import express from 'express';
 import { Router } from 'express';
 import cartService from '../services/cartsService.js'
+import CustomError from '../services/errors/CustomError.js';
+import EError from '../services/errors/enums.js';
+import { addProductToCart } from '../services/errors/info.js';
 
 const router = express.Router();
 
@@ -37,11 +40,16 @@ async function newProductToCart(req, res){
     try {
         let idCart = req.params.cid;
         let idProduct = req.params.pid;
-        console.log("I del producto", idProduct)
+        console.log("I del producto", idCart)
         const resultCart = await cartService.newProductToCartService(idCart, idProduct);
         res.json({result:"Succes", payload:resultCart}) 
     } catch (error) {
-        console.log("Error al agregar producto al carrito", error)
+        CustomError.createError({
+            name:"agregar producto al carrito error",
+            cause: addProductToCart(),
+            message:"El producto o carrito no existe",
+            code:EError.INVALID_TYPES_ERROR
+          })
     }
 }
 

@@ -1,6 +1,9 @@
 import express from "express";
 import { Router } from "express";
 import productsService from "../services/productsService.js";
+import CustomError from "../services/errors/CustomError.js";
+import { generarProductErrorInfo } from "../services/errors/info.js";
+import EError from "../services/errors/enums.js";
 
 const router = express.Router();
 
@@ -46,7 +49,12 @@ async function newProduct(req, res) {
     let { titulo, price, disponible } = req.body;
 
     if (!titulo || !price || !disponible) {
-      res.json({ status: "error", error: "Faltan parametros" });
+      CustomError.createError({
+        name:"Error al crear el producto",
+        cause: generarProductErrorInfo({titulo, price, disponible}),
+        message:"Error al intentar crear producto",
+        code:EError.INVALID_TYPES_ERROR
+      })
     }
     let result = await productsService.newProductService({
       titulo,

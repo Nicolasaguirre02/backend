@@ -1,5 +1,7 @@
 import cartsModel from "../dao/models/carts.model.js";
 import CartRepository from "../dao/repositories/Carts.repository.js";
+import CustomError from "./errors/CustomError.js";
+import { addProductToCart } from "./errors/info.js";
 
 const cartsData = new CartRepository(cartsModel);
 
@@ -26,9 +28,7 @@ async function newProductToCartService(idCart, idProduct) {
   const existeProduct = listProducts.findIndex(
     (producto) => producto.product.toString() === idProduct
   );
-
-  /* console.log("Lista a correr", listProducts); */
-
+  
   if (existeProduct > -1) {
     // Si el producto ya está en el carrito, actualiza la cantidad
     listProducts[existeProduct].quantity += 1;
@@ -38,6 +38,7 @@ async function newProductToCartService(idCart, idProduct) {
   }
 
   await cartsData.newProductToCartData(cartSelect);
+  
   return cartSelect;
 }
 

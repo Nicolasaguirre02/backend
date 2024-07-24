@@ -7,7 +7,7 @@ const router = express.Router();
 async function mockingController(req, res){
     try {
         let products = generarProducts();
-        res.send({saludo:products})
+        res.send({playload:products})
     } catch (error) {
         console.log(error)
     }
