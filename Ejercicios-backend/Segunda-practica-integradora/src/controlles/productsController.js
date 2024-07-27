@@ -63,6 +63,7 @@ async function newProduct(req, res) {
     });
     res.json({ response: "Succes", playload: result });
   } catch (error) {
+    req.looger.error("Error al crear un nuevo producto")
     res.json({ respuesta: "Error al crear un nuevo producto", error });
   }
 }
@@ -76,6 +77,7 @@ async function putProduct(req, res) {
       !productModificado.price ||
       !productModificado.disponible
     ) {
+      req.logger.warning("Faltan parametros")
       res.json({ status: "error", error: "Faltan parametros" });
     }
     let respuestaProduct = await productsService.putProductService(

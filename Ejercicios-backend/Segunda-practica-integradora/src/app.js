@@ -4,6 +4,7 @@ import routerCarts from "./routes/api/carts.router.js";
 import routerProducts from "./routes/api/products.router.js";
 import routerView from "./routes/views.router.js";
 import routerMessage from "./routes/api/messages.router.js";
+import routerLogger from "./routes/api/loggerTest.router.js";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
 import __dirname from "./utils.js";
@@ -12,6 +13,7 @@ import routerUser from "./routes/api/users.router.js";
 import routerMocking from './routes/api/mocking.router.js'
 import passport from "passport";
 import initializePassport from "./config/passport.config.js";
+import { addLoger } from "./utils/logger.js";
 
 //Imports session
 import cookieParse from "cookie-parser";
@@ -84,6 +86,7 @@ app.use(
 initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(addLoger)
 
 app.use("/chat", routerView);
 app.use("/", routerView);
@@ -92,6 +95,7 @@ app.use("/api", routerCarts);
 app.use("/api", routerProducts);
 app.use("/api", routerUser);
 app.use("/api", routerMocking);
+app.use("/api", routerLogger);
 
 
 app.use("/api", routerMessage);

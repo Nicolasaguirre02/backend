@@ -4,7 +4,6 @@ import cartService from '../services/cartsService.js'
 import CustomError from '../services/errors/CustomError.js';
 import EError from '../services/errors/enums.js';
 import { addProductToCart } from '../services/errors/info.js';
-
 const router = express.Router();
 
 async function getAllCarts(req,  res){
@@ -12,6 +11,7 @@ async function getAllCarts(req,  res){
         const carts = await cartService.getAllCartsService(); 
         res.json(carts)
     } catch (error) {
+        req.logger.error("Error al listar carrito")
         res.json({respuesta:"Error al listar todo los carritos", error:error})
     }
 }
