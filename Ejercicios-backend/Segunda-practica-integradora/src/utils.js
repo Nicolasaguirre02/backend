@@ -61,11 +61,11 @@ async function enviarMail(tiket) {
 
 //Middlware autorizacion a entpint products
 const isAdmin = (req, res, next) => {
-  console.log("Esto se ejecuta desde la autorizacion", req.user.rol);
+  //console.log("Esto se ejecuta desde la autorizacion", req.user.rol);
   if (!req.user) {
     return res.status(403).json({ error: "Debe iniciar sesion" });
   }
-  if (req.user.rol === "admin") {
+  if (req.user.rol === "premium") {
     next();
   } else {
     return res.status(403).json({ error: "Debe tener cuenta admin" });

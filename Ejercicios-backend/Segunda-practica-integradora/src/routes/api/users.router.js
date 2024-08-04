@@ -7,7 +7,12 @@ import userController from "../../controlles/userController.js";
 
 const router = Router();
 
+
 router.get("/current", userController.currentController);
+
+router.post('/recoverPassword', userController.recoverPasswordController);
+
+router.put('/users/premium/:uid', userController.modifyRoleController);
 
 router.post(
   "/login",
