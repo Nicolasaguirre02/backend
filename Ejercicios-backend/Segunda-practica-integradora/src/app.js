@@ -15,6 +15,9 @@ import passport from "passport";
 import initializePassport from "./config/passport.config.js";
 import { addLoger } from "./utils/logger.js";
 
+import swaggerJSDoc from "swagger-jsdoc";
+import SwageerUiExpress from "swagger-ui-express"
+
 //Imports session
 import cookieParse from "cookie-parser";
 import session from "express-session";
@@ -87,6 +90,22 @@ initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(addLoger)
+
+
+const swaggerOtions = {
+  definition:{
+    openapi: "3.0.1",
+    info:{
+      title:"Documentacion",
+      description:"Descripcion swagger"
+    },
+  },
+  apis:[`src/docs/**/*.yaml`]
+}
+
+const specs = swaggerJSDoc(swaggerOtions);
+app.use("/apidocs", SwageerUiExpress.serve, SwageerUiExpress.setup(specs))
+
 
 app.use("/chat", routerView);
 app.use("/", routerView);

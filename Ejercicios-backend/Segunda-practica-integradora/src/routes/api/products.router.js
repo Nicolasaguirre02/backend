@@ -11,10 +11,11 @@ router.get("/products", productsController.getProductsController);
 
 router.get("/products/:pid", productsController.getProductId);
 
-router.post("/products", isAdmin, productsController.newProduct); 
-/* router.post("/products", productsController.newProduct); */
-
-router.put("/products/:pid", isAdmin, productsController.putProduct);
+/* router.post("/products", isAdmin, productsController.newProduct);  */
+ router.post("/products", productsController.newProduct); 
+/* 
+router.put("/products/:pid", isAdmin, productsController.putProduct); */
+router.put("/products/:pid", productsController.putProduct);
 
 router.delete("/products/:pid",isAdmin, productsController.deleteProduct);
 
