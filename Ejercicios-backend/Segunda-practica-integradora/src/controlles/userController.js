@@ -93,9 +93,17 @@ async function currentController(req, res) {
   res.json({ status: "succes", playload: registeredUser });
 }
 
+//Esta funcion direcciona al login al crear un usuario por la web
+/* async function registerController(req, res) {
+  res.redirect("/login"); 
+} */
+
+//Esta funcion me retorna el nuevo usaurio creado, lo utilizo para los test
 async function registerController(req, res) {
-  res.redirect("/login");
+  const newUser = req.body
+  res.json({ status: "succes", playload: newUser });
 }
+
 
 async function failRegisterController(req, res) {
   res.send({ error: "Fallo" });
