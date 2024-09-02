@@ -21,10 +21,16 @@ async function modifyRoleService(userId, user){
     return await userData.modifyUser(userId, user)
 }
 
+async function ultmaConexionSrvice(user){
+    console.log("Del service------------------------", user)
+   await userData.ultimaConexionModel(user)
+}
+
 
 export default {
     recoverPasswordService,
     putPasswordUserService,
     modifyRoleService,
-    getUserIdService
+    getUserIdService,
+    ultmaConexionSrvice
 }

@@ -1,18 +1,21 @@
 import Router, { response } from "express";
 import User from "../../dao/models/users.model.js";
-import { createHash, isValidPassword } from "../../utils.js";
+import { createHash, isValidPassword, uploader } from "../../utils.js";
 import passport from "passport";
 import { generarToken, authToken } from "../../utils.js";
 import userController from "../../controlles/userController.js";
 
 const router = Router();
 
+router.post('/users/:uid/documents', uploader.array('file'), userController.newDocumentService)
+
+router.put('/users/premium/:uid', userController.modifyRoleController);
+
 
 router.get("/current", userController.currentController);
 
 router.post('/recoverPassword', userController.recoverPasswordController);
 
-router.put('/users/premium/:uid', userController.modifyRoleController);
 
 router.post(
   "/login",

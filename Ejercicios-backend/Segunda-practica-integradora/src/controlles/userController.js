@@ -1,23 +1,54 @@
 import express from "express";
 import UserDTO from "../dao/DTOs/user.dto.js";
 import userService from "../services/userService.js";
+import path from 'path'
 import { Router } from "express";
 import { generarToken, authToken, isValidPassword, createHash } from "../utils.js";
 
 const router = express.Router();
 
+async function newDocumentService(req,res) {
+    try {
+      let userId = req.params.uid;
+      let usuario = await userService.getUserIdService(userId);
+      let listaDocuments =  usuario.documents;
+      let ubiacionAguardar = "../nuevo/documents"
+      let listaArchivos = req.files;
+     for(const file of listaArchivos){
+        let objetoFile = {
+          name: file.filename,
+          reference:  `${ubiacionAguardar}/${file.filename}`
+        };
+        listaDocuments.push(objetoFile);
+      }
+     //console.log("Lista documents", listaDocuments);
+     await userService.modifyRoleService(userId, usuario)
+     res.status(200).json({"status":"succes", "respuesta":"Docuemntos cargados correctamente"})
+    } catch (error) {
+      res.status(500).json({ respuesta: 'No se puedo cargar el documento' });
+    }
+}
+
+
 async function modifyRoleController(req, res){
   try {
     let userId = req.params.uid;
     let role = req.body.role;
+    const user = await userService.getUserIdService(userId);
+    let listaDocuments =  user.documents;
+
     if(role != "user" && role != "premium"){
       res.status(400).json({ "sastus":"400", "respuesta": 'El usuario debe ser user o premium' });
       return
     }
 
-    const user = await userService.getUserIdService(userId);
     if(!user){
       res.status(400).json({ "sastus":"400", "respuesta": 'No existe usuario con este id' });
+      return
+    }
+    console.log(listaDocuments.length)
+    if(listaDocuments.length < 3 && role == "premium"){
+      res.status(400).json({ "sastus":"400", "respuesta": 'Para ser premium se deben cargar los documentos faltantes' });
       return
     }
     
@@ -60,7 +91,7 @@ async function loginController(req, res) {
   const loginUser = req.body;
  // console.log("loginUser", loginUser);
   const user = req.user;
-  //console.log("user", user);
+  console.log("user", user);
   let isAdmin = false;
   if (!loginUser.email || !loginUser.password)
     return res
@@ -74,7 +105,8 @@ async function loginController(req, res) {
 
     const newToken = generarToken(user);
 
-    console.log("Este es mi usuario", user);
+    await userService.ultmaConexionSrvice(user)
+    
     res.cookie("token", newToken, { maxAge: 10000, httpOnly: true });
     res.redirect("/products");
   } catch (error) {
@@ -94,15 +126,15 @@ async function currentController(req, res) {
 }
 
 //Esta funcion direcciona al login al crear un usuario por la web
-/* async function registerController(req, res) {
+ async function registerController(req, res) {
   res.redirect("/login"); 
-} */
+} 
 
 //Esta funcion me retorna el nuevo usaurio creado, lo utilizo para los test
-async function registerController(req, res) {
+/* async function registerController(req, res) {
   const newUser = req.body
   res.json({ status: "succes", playload: newUser });
-}
+} */
 
 
 async function failRegisterController(req, res) {
@@ -122,7 +154,9 @@ async function githubCallbackController(req, res) {
 }
 
 async function logoutController(req, res) {
-  req.session.destroy((err) => {
+  req.session.destroy(async(err) => {
+    console.log("Usuraio salida", req.user)
+    await userService.ultmaConexionSrvice(user)
     if (err) return res.status(500).send("Error al cerrar sesion");
     res.redirect("/login");
   });
@@ -138,5 +172,6 @@ export default {
   githubCallbackController,
   logoutController,
   recoverPasswordController,
-  modifyRoleController
+  modifyRoleController,
+  newDocumentService
 };

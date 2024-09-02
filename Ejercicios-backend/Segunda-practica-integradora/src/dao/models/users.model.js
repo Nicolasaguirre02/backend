@@ -18,6 +18,13 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "carts",
   },
+  documents: [
+    {
+      name: {type: String, require: true},
+      reference: {type: String, require: true}
+    }
+  ],
+  last_conecction: {type: Date, default: new Date()}
 });
 
 const userModel = mongoose.model(usersCollection, userSchema);

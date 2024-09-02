@@ -18,4 +18,10 @@ export default class UserRepository{
         return await this.model.updateOne({ _id: userID }, user);
     }
 
+
+    async ultimaConexionModel(user){
+        user.last_connection = new Date();
+        await user.save();
+    }
+
 }
